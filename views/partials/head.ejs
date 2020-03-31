@@ -1,0 +1,54 @@
+<meta name="google-signin-client_id" content="215353985049-8c23rmqs8hsm644jncd4ppunsnn6u4gh.apps.googleusercontent.com">
+
+<!-- CSS -->
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,500&display=swap" rel="stylesheet">
+<link href="css/hubspot_style.css" rel="stylesheet">
+<link href="css/TableBarChart.css" rel="stylesheet">
+<link href="css/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+
+<!-- JS -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/floatthead"></script>
+<script src="js/functions.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/TableBarChart.js"></script>
+
+<script>
+	function onSignIn(googleUser) {
+		var user = sessionStorage.getItem("email");
+		console.log("storage user: " + user);
+
+	  	var profile = googleUser.getBasicProfile();
+
+		$("#g-name").text(profile.getName());
+		$("#g-name").show();
+		
+		$("#google-btn").hide();
+
+		$("#g-user-img").attr('src', profile.getImageUrl());
+		$("#g-user-img").show();
+		
+		if (profile.getEmail().includes('@synlighet')) {
+			loadData();
+		} else {
+			$("#errormessage").text("Kun interne kontoer har tilgang");
+			$("#refreshLink").show();
+			signOut();
+		}
+	}
+
+	function signOut() {
+	    var auth2 = gapi.auth2.getAuthInstance();
+	    auth2.signOut().then(function () {
+	      console.log('User signed out.');
+	    });
+	  }
+</script>

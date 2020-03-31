@@ -1,0 +1,136 @@
+<nav class="navbar navbar-light bg-light justify-content-between" style="background-color: #ededed !important;">
+  
+  <div class="btn-group">
+
+	  <div class="btn-group" style="margin-left: 10px; ">
+	  <button class="btn btn-secondary" id="scoreboardbtn" type="button" onclick="showScoreBoard()" aria-expanded="false">
+	    Scoreboard <img id="scoreboardspinner" src="img/infinity.svg" style="display: none; height: 25px;" />
+	  </button>
+
+	</div>
+	</div>
+	</form>
+  
+  <form class="form-inline" style="padding-right: 120px;">
+  
+  	<div class="btn-group">
+
+	  <div class="btn-group" style="margin-left: 10px;">
+
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonLand" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    Land
+	  </button>
+	 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtonLand">
+	    <a class="dropdown-item" href="#" onclick="selectSalesCountry('0', '')">Alle</a>
+	    <a class="dropdown-item" href="#" onclick="selectSalesCountry('6463683', 'Norge')">Norge</a>
+	    <a class="dropdown-item" href="#" onclick="selectSalesCountry('4190527', 'Sverige')">Sverige</a>
+	  </div>
+	</div>
+
+	<div class="btn-group" style="margin-left: 10px;">
+
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonDepartment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    Avdelinger
+	  </button>
+	 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtonDepartment">
+	    <a class="dropdown-item" href="#" onclick="selectSalesDepartment('0', '')">Alle</a>
+	    <a class="dropdown-item selectSverige" id="sverige" href="#" onclick="selectSalesDepartment('1', 'Malmø')">Malmø</a>
+	    <a class="dropdown-item selectNorge" id="norge" href="#" onclick="selectSalesDepartment('2', 'Bergen')">Bergen</a>
+	    <a class="dropdown-item selectNorge" id="norge" href="#" onclick="selectSalesDepartment('3', 'Oslo')">Oslo</a>
+	    <a class="dropdown-item selectNorge" id="norge" href="#" onclick="selectSalesDepartment('4', 'Trondheim')">Trondheim</a>
+	    <a class="dropdown-item selectNorge" id="norge" href="#" onclick="selectSalesDepartment('5', 'Ledelsen')">Ledelsen</a>
+	  </div>
+	</div>
+
+	  <div class="btn-group">
+
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonSales" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    Selgere
+	  </button>
+	  <div id="sales-persons" class="dropdown-menu dropdown-menu-right" style="max-height: 400px; overflow: scroll;" aria-labelledby="dropdownMenuButtonSales">
+	  	<div class="col-12" style="">
+	  		<div class="form-group" style="width: 100%;">
+			    <input type="text" id="search-persons" class="form-control" style="padding-left: 5px;width: 100%; border: 0;" aria-describedby="" placeholder="Selger">
+			</div>
+	  	</div>
+	  	<div class="dropdown-divider"></div>
+	  </div>
+	</div>
+
+    <div class="btn-group" style="margin-left: 10px;">
+
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonPeriode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    Periode
+	  </button>
+	 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtonPeriode" style="max-height: 600px; overflow: auto;">
+	    <a class="dropdown-item" href="#" id="link-allperiodes" onclick="selectSalesPeriode('0', '', 'Alle perioder','link-allperiodes')">Alle perioder</a>
+	    <a class="dropdown-item" href="javascript:void(0);" onclick="$('.menu-2020').slideToggle(); event.stopPropagation(); ">2020 <i id="" class="material-icons" style="font-size: 15px;"> keyboard_arrow_down </i></a>
+	    <div class="menu-2020" style="width: 100%;display: none;">
+	    	<div class="dropdown-divider"></div>
+
+	    	<a class="dropdown-item" id="link-2020" href="#" onclick="selectSalesPeriode('2020', '', 'Hele året', 'link-2020')">Hele året</a>
+	    	<a class="dropdown-item" id="link-2020-1" href="#" onclick="selectSalesPeriode('2020', '1', 'Januar', 'link-2020-1')">Januar</a>
+	    	<a class="dropdown-item" id="link-2020-2" href="#" onclick="selectSalesPeriode('2020', '2', 'Februar', 'link-2020-2')">Februar</a>
+	    	<a class="dropdown-item" id="link-2020-3" href="#" onclick="selectSalesPeriode('2020', '3', 'Mars', 'link-2020-3')">Mars</a>
+	    	<a class="dropdown-item" id="link-2020-4" href="#" onclick="selectSalesPeriode('2020', '4', 'April', 'link-2020-4')">April</a>
+	    	<a class="dropdown-item" id="link-2020-5" href="#" onclick="selectSalesPeriode('2020', '5', 'Mai', 'link-2020-5')">Mai</a>
+	    	<a class="dropdown-item" id="link-2020-6" href="#" onclick="selectSalesPeriode('2020', '6', 'Juni', 'link-2020-6')">Juni</a>
+	    	<a class="dropdown-item" id="link-2020-7" href="#" onclick="selectSalesPeriode('2020', '7', 'Juli', 'link-2020-7')">Juli</a>
+	    	<a class="dropdown-item" id="link-2020-8" href="#" onclick="selectSalesPeriode('2020', '8', 'August', 'link-2020-8')">August</a>
+	    	<a class="dropdown-item" id="link-2020-9" href="#" onclick="selectSalesPeriode('2020', '9', 'September', 'link-2020-9')">September</a>
+	    	<a class="dropdown-item" id="link-2020-10" href="#" onclick="selectSalesPeriode('2020', '10', 'Oktober', 'link-2020-10')">Oktober</a>
+	    	<a class="dropdown-item" id="link-2020-11" href="#" onclick="selectSalesPeriode('2020', '11', 'November', 'link-2020-11')">November</a>
+	    	<a class="dropdown-item" id="link-2020-12" href="#" onclick="selectSalesPeriode('2020', '12', 'Desember', 'link-2020-12')">Desember</a>
+
+	    </div>
+
+	    <a class="dropdown-item" href="javascript:void(0);" onclick="$('.menu-2019').slideToggle(); event.stopPropagation(); ">2019 <i id="" class="material-icons" style="font-size: 15px;"> keyboard_arrow_down </i></a>
+	    <div class="menu-2019" style="width: 100%;display: none;">
+	    	<div class="dropdown-divider"></div>
+
+	    	<a class="dropdown-item" id="link-2019" href="#" onclick="selectSalesPeriode('2019', '', 'Hele året', 'link-2019')">Hele året</a>
+	    	<a class="dropdown-item" id="link-2019-1" href="#" onclick="selectSalesPeriode('2019', '1', 'Januar', 'link-2019-1')">Januar</a>
+	    	<a class="dropdown-item" id="link-2019-2" href="#" onclick="selectSalesPeriode('2019', '2', 'Februar', 'link-2019-2')">Februar</a>
+	    	<a class="dropdown-item" id="link-2019-3" href="#" onclick="selectSalesPeriode('2019', '3', 'Mars', 'link-2019-3')">Mars</a>
+	    	<a class="dropdown-item" id="link-2019-4" href="#" onclick="selectSalesPeriode('2019', '4', 'April', 'link-2019-4')">April</a>
+	    	<a class="dropdown-item" id="link-2019-5" href="#" onclick="selectSalesPeriode('2019', '5', 'Mai', 'link-2019-5')">Mai</a>
+	    	<a class="dropdown-item" id="link-2019-6" href="#" onclick="selectSalesPeriode('2019', '6', 'Juni', 'link-2019-6')">Juni</a>
+	    	<a class="dropdown-item" id="link-2019-7" href="#" onclick="selectSalesPeriode('2019', '7', 'Juli', 'link-2019-7')">Juli</a>
+	    	<a class="dropdown-item" id="link-2019-8" href="#" onclick="selectSalesPeriode('2019', '8', 'August', 'link-2019-8')">August</a>
+	    	<a class="dropdown-item" id="link-2019-9" href="#" onclick="selectSalesPeriode('2019', '9', 'September', 'link-2019-9')">September</a>
+	    	<a class="dropdown-item" id="link-2019-10" href="#" onclick="selectSalesPeriode('2019', '10', 'Oktober', 'link-2019-10')">Oktober</a>
+	    	<a class="dropdown-item" id="link-2019-11" href="#" onclick="selectSalesPeriode('2019', '11', 'November', 'link-2019-11')">November</a>
+	    	<a class="dropdown-item" id="link-2019-12" href="#" onclick="selectSalesPeriode('2019', '12', 'Desember', 'link-2019-12')">Desember</a>
+	    </div>
+
+	    <a class="dropdown-item" href="javascript:void(0);" onclick="$('.menu-2018').slideToggle(); event.stopPropagation(); ">2018 <i id="" class="material-icons" style="font-size: 15px;"> keyboard_arrow_down </i></a>
+	    <div class="menu-2018" style="width: 100%;display: none;">
+	    	<div class="dropdown-divider"></div>
+
+	    	<a class="dropdown-item" id="link-2018" href="#" onclick="selectSalesPeriode('2018', '', 'Hele året', 'link-2018')">Hele året</a>
+	    	<a class="dropdown-item" id="link-2018-1" href="#" onclick="selectSalesPeriode('2018', '1', 'Januar', 'link-2018-1')">Januar</a>
+	    	<a class="dropdown-item" id="link-2018-2" href="#" onclick="selectSalesPeriode('2018', '2', 'Februar', 'link-2018-2')">Februar</a>
+	    	<a class="dropdown-item" id="link-2018-3" href="#" onclick="selectSalesPeriode('2018', '3', 'Mars', 'link-2018-3')">Mars</a>
+	    	<a class="dropdown-item" id="link-2018-4" href="#" onclick="selectSalesPeriode('2018', '4', 'April', 'link-2018-4')">April</a>
+	    	<a class="dropdown-item" id="link-2018-5" href="#" onclick="selectSalesPeriode('2018', '5', 'Mai', 'link-2018-5')">Mai</a>
+	    	<a class="dropdown-item" id="link-2018-6" href="#" onclick="selectSalesPeriode('2018', '6', 'Juni', 'link-2018-6')">Juni</a>
+	    	<a class="dropdown-item" id="link-2018-7" href="#" onclick="selectSalesPeriode('2018', '7', 'Juli', 'link-2018-7')">Juli</a>
+	    	<a class="dropdown-item" id="link-2018-8" href="#" onclick="selectSalesPeriode('2018', '8', 'August', 'link-2018-8')">August</a>
+	    	<a class="dropdown-item" id="link-2018-9" href="#" onclick="selectSalesPeriode('2018', '9', 'September', 'link-2018-9')">September</a>
+	    	<a class="dropdown-item" id="link-2018-10" href="#" onclick="selectSalesPeriode('2018', '10', 'Oktober', 'link-2018-10')">Oktober</a>
+	    	<a class="dropdown-item" id="link-2018-11" href="#" onclick="selectSalesPeriode('2018', '11', 'November', 'link-2018-11')">November</a>
+	    	<a class="dropdown-item" id="link-2018-12" href="#" onclick="selectSalesPeriode('2018', '12', 'Desember', 'link-2018-12')">Desember</a>
+
+	    </div>
+	  </div>
+	  
+
+	  <div class="btn-group" style="margin-left: 10px; ">
+	  	<!--<button class="btn btn-secondary" id="resetbtn" type="button" onclick="resetFilters()" style="display: none !important;">Reset
+	  </button>-->
+
+	</div>
+
+	</div>
+  </form>
+</nav>

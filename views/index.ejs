@@ -1,0 +1,172 @@
+<html>
+	<head>
+		<title>Synlighet - <%= title %></title>
+		<%- include ('./partials/head');  %>
+	</head>
+	<body>
+		<div class="overlay fixed-top" style="padding-top: 25%;">
+			<h1 style="margin-top: -5%; text-align: center; color: #F46B50;"><%= title %></h1><br>
+			<h4 style="text-align: center; color: #fff !important; opacity: 0.8;">by <img src="img/logo_full.png" style="height: 50px;" /></h4>
+			<div class="loader" style="">
+			    <svg class="circular">
+			        <circle class="path" fill="none" r="20" cx="50" cy="50" stroke-width="3" stroke-miterlimit="10"/>
+			    </svg>
+			</div>
+			<center>
+				<div class="g-signin2" id="google-btn" data-onsuccess="onSignIn"></div>
+				<span id="errormessage" style="color: #fff;"></span>
+				<b><a href="#" id="refreshLink" style="display: none; color: #fafafa;" onclick="location.reload();">Last inn på nytt</a></b>
+			</center>
+		</div>
+		<%- include ('./partials/modals');  %>
+
+		<div class="fixed-top">
+			<%- include ('./partials/menu');  %>
+			<%- include ('./partials/filtermenu');  %>
+		</div>
+
+		<div class="row" style="height: 200px; margin: 0; margin-top: 200px;">
+
+			<div class="col-3 post-vertical-parent" style="height: 100% !important; ">
+				<div class="card post-vertical-child bg-success">
+					<div class="card-body">
+						<div class="card-body-top" style="color: #fff;">Signert</div>
+						<div id="amountOmsatt" class="card-body-bottom font-worksans" style="color: #fff; ">
+							<div class="loader" style="margin-top: -10px;">
+							    <svg class="circular">
+							        <circle class="path" fill="none" r="20" cx="50" cy="50" stroke-width="3" stroke-miterlimit="10"/>
+							    </svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-3 post-vertical-parent" style="height: 100% !important; ">
+				<div class="card post-vertical-child" style="background-color: #283848;">
+					<div class="card-body">
+						<div class="card-body-top" style="color: #fff;">Pågående salgsprosesser</div>
+						<div id="amountPotensial" class="card-body-bottom font-worksans " style="color: #fff;">
+							<div class="loader" style="margin-top: -10px;">
+							    <svg class="circular">
+							        <circle class="path" fill="none" r="20" cx="50" cy="50" stroke-width="3" stroke-miterlimit="10"/>
+							    </svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-3 post-vertical-parent" style="height: 100% !important; ">
+				<div class="card post-vertical-child bg-warning">
+					<div class="card-body">
+						<div class="card-body-top" style="color: #fff;">Tapt omsettning</div>
+						<div id="amountLost" style="color: #fff;" class="card-body-bottom font-worksans ">
+							<div class="loader" style="margin-top: -10px;">
+							    <svg class="circular">
+							        <circle class="path" fill="none" r="20" cx="50" cy="50" stroke-width="3" stroke-miterlimit="10"/>
+							    </svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-3 post-vertical-parent" style="height: 100% !important; ">
+				<div class="card post-vertical-child bg-info">
+					<div class="card-body" >
+						<div class="card-body-top" style="color: #fff;">Forventet ordreinngang <!-- <button class="btn-scoreboard" onclick="showScoreBoard()"><span class="oi oi-signal"></span> --></button></div>
+						<div id="amountEstimert" style="color: #fff;" class="card-body-bottom font-worksans ">
+							<div class="loader" style="margin-top: -10px;">
+							    <svg class="circular">
+							        <circle class="path" fill="none" r="20" cx="50" cy="50" stroke-width="3" stroke-miterlimit="10"/>
+							    </svg>
+							</div>
+						</div>
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="btn-graph-holder" style="width: 100%; height: 50px; ">
+			<button type="button" class="btn btn-secondary" style="width: 100%; border-bottom: 1px solid #ccc;" onclick="actionToggleGraph();">Vis graf</button>
+		</div>
+		
+		<div class="row" id="graph-view" style="margin: 0; margin-top: 20px; height: 300px; display: none;">
+			<div class="col-12" style="">
+				<canvas id="barChart"></canvas>
+				<div class="col-12" style="height: 40px; border-bottom: 1px solid #ccc; padding-left: 55px; padding-right: 55px; text-align: center; color: #F46B50; ">
+					<div class="col-1" style="float: left;">Januar</div>
+					<div class="col-1" style="float: left;">Februar</div>
+					<div class="col-1" style="float: left;">Mars</div>
+					<div class="col-1" style="float: left;">April</div>
+					<div class="col-1" style="float: left;">Mai</div>
+					<div class="col-1" style="float: left;">Juni</div>
+					<div class="col-1" style="float: left;">Juli</div>
+					<div class="col-1" style="float: left;">August</div>
+					<div class="col-1" style="float: left;">September</div>
+					<div class="col-1" style="float: left;">Oktober</div>
+					<div class="col-1" style="float: left;">November</div>
+					<div class="col-1" style="float: left;">Desember</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row" style="margin: 0; margin-top: 40px;">
+			<div class="col-10" style="float: right; padding-left: 22px; font-size: 25px;">Kunder i Salespipe</div>
+			<div class="col-10" style="float: left; padding-left: 22px;">
+				<input type="text" id="table-filter-input" style="display: none;" placeholder="Filters" class="form-control" value=''> 
+			</div>
+			<div class="col-2" style="float: right;">
+				<button type="button" onclick="actionToggleTable()" style="display:inline-block; float: right;" class="btn btn-secondary">
+					<i id="table-icon" class="material-icons"> keyboard_arrow_down </i>
+				</button>
+				
+			</div>
+			<div class="col-12" style="margin: 0 auto;">
+		      <table class="table table-hover">
+				  <thead style="color: #fff !important; " >
+				    <tr id="tbl-pipeline" style="">
+				    	<!-- check if sale is lost, add lost sale in column next to progress -->
+				      <th scope="col" style="width: 500px;"></th>
+				      <th id="th-pipelineZ" class="poorreadingpeeps" scope="col" style="width: 30px; color: #FAFAFA !important;">%</th>
+				      <th id="th-pipeline0" class="poorreadingpeeps" scope="col" style="width: 120px;"></th>
+				      <th id="th-pipeline1" class="poorreadingpeeps" scope="col" style="width: 180px;"></th>
+				      <th id="th-pipeline2" class="poorreadingpeeps" scope="col" style="width: 250px;"></th>
+				      <th id="th-pipeline3" class="poorreadingpeeps" scope="col" style="width: 250px;"></th>
+				      <th id="th-pipeline4" class="poorreadingpeeps" scope="col" style="width: 50px;"></th>
+				      <th id="th-pipeline5" class="poorreadingpeeps" scope="col" style="width: 150px;"></th>
+				    </tr>
+				  </thead>
+				  <tbody id="tbl-customers" style="display: none;">
+
+				  </tbody>
+				  <tr onclick="actionToggleTable()" style="cursor: pointer;">
+
+				  	<td style="text-align: left;"><small>Antall: <span id="stages-customers">1</span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stageZ"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage1"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage2"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage3"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage4"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage5"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage6"></span></small></td>
+				  </tr>
+				</table>
+				<div class="row" style="margin: 0; margin-top: 20px;">
+			<div class="col-10" style="float: left; padding-left: 22px; font-size: 25px;"></div>
+
+			<div class="col-2" style="float: right;">
+				<!-- <button type="button" onclick="loadData(15)" style="float: right;" class="btn btn-secondary">
+					<i id="table-icon" class="material-icons"> keyboard_arrow_right </i>
+				</button>
+				<button type="button" onclick="actionToggleTable()" style="float: right;" class="btn btn-secondary">
+					<i id="table-icon" class="material-icons"> keyboard_arrow_left </i>
+				</button> -->
+				
+			</div>
+		    </div>
+		</div>
+	</body>
+</html>

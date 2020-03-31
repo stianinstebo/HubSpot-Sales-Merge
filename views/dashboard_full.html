@@ -1,0 +1,416 @@
+<html>
+	<head>
+		<title>Synlighet - HubSpot Sales Merge</title>
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,500&display=swap" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+
+		<!-- JS -->
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+
+		<script src="https://unpkg.com/floatthead"></script>
+		<script src="js/functions.js"></script>
+		<script src="js/graph.js"></script>
+
+		
+	</head>
+	<body>
+		<div class="overlay fixed-top" style="padding-top: 25%;">
+			<h1 style="margin-top: -5%; text-align: center; color: #F46B50;">HubSpot Sales Merge</h1><br>
+			<h4 style="text-align: center; color: #fff !important; opacity: 0.8;">by <img src="img/logo_full.png" style="height: 50px;" /></h4>
+			<div class="loader" style="">
+			    <svg class="circular">
+			        <circle class="path" fill="none" r="20" cx="50" cy="50" stroke-width="3" stroke-miterlimit="10"/>
+			    </svg>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="dealModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content" style="background-color: #283848; color: #fff;">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle"><span id="dealname">Dealnavn</span> <span id="dealId" style="font-size: 10px;"></span></h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" >
+		      	<div class="progress progress-stages" style=""> <div id="modalStageStatus" class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div> </div>
+		      	<br>
+		        <table class="table table-hover">
+		        	<tbody style="color: #fff;">
+		        		<tr >
+		        			<td style="padding-top: 20px; border-bottom: 1px solid #ccc !important;">Salgsansvarlig:</td>
+		        			<td id="dealkam" style="border-bottom: 1px solid #ccc !important;"></td>
+		        		</tr>
+		        		<tr>
+		        			<td>Beløp:</td>
+		        			<td id="dealamount"></td>
+		        		</tr>
+		        		<tr>
+		        			<td>Opprettet:</td>
+		        			<td id="dealcreated"></td>
+		        		</tr>
+		        		<tr>
+		        			<td id="dealclosedtitle">Forventet lukket:</td>
+		        			<td id="dealclosed"></td>
+		        		</tr>
+		        		<tr>
+		        			<td>Status:</td>
+		        			<td id="dealstage"></td>
+		        		</tr>
+		        		<tr id="rowDealProbability">
+		        			<td>Sannsynlighet for avtale:</td>
+		        			<td id="dealprobability"></td>
+		        		</tr>
+		        	</tbody>
+		        </table>
+		      </div>
+
+		      <div class="collapse multi-collapse" id="customerCommunication" style="margin-left: 25px; margin-right: 25px; padding: 15px; border: 1px solid #F46B50;">
+			      <small style="padding-left: 5px; padding-right: 5px; border-bottom: 1px solid #ccc;">29.11.2019 | Astrid Olsson</small>
+			      <br><br>			      
+			    </div>
+
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" style="color: #F46B50;" onclick="$('#dealModal').modal('toggle');">Lukk</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- Modal Scoreboard-->
+		<div class="modal fade" id="scoreboardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" id="modal_scoreboard" role="document">
+		    <div class="modal-content" style="background-color: #283848; color: #fff;">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle"><span id="dealname">Scoreboard</span> <span id="dealId" style="font-size: 10px;"></span></h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" >
+		      	
+		      	<br>
+		        <table class="table table-hover">
+		        	<tbody style="color: #fff;">
+		        		<tr >
+		        			<td style="padding-top: 20px; border-bottom: 1px solid #ccc !important;"></td>
+		        			<td id="dealkam" style="border-bottom: 1px solid #ccc !important;">Navn</td>
+		        			<td id="dealkam" style="border-bottom: 1px solid #ccc !important;">Signert</td>
+		        			<td id="dealkam" style="border-bottom: 1px solid #ccc !important;">Tapt</td>
+		        			<td id="dealkam" style="border-bottom: 1px solid #ccc !important;">Avdeling</td>
+		        		</tr>
+		        		<tr onclick="selectSalesRepbeta()">
+		        			<td>1. Plass:</td>
+		        			<td id="dealamount">Stian Instebø</td>
+		        			<td id="dealamount">100 000 <span style="font-size: 8px;">NOK</span></td>
+		        			<td id="dealamount">0 <span style="font-size: 8px;">NOK</span></td>
+		        			<td id="dealamount">Bergen</td>
+		        		</tr>
+		        		<tr>
+		        			<td>2. Plass:</td>
+		        			<td id="dealcreated">Astrid Olsson</td>
+		        			<td id="dealamount">50 000 <span style="font-size: 8px;">NOK</span></td>
+		        			<td id="dealamount">10 000 <span style="font-size: 8px;">NOK</span></td>
+		        			<td id="dealamount">Bergen</td>
+		        		</tr>
+		        		<tr>
+		        			<td id="dealclosedtitle">3. Plass:</td>
+		        			<td id="dealclosed">Andreas Dyngen</td>
+		        			<td id="dealamount">20 000 <span style="font-size: 8px;">NOK</span></td>
+		        			<td id="dealamount">40 000 <span style="font-size: 8px;">NOK</span></td>
+		        			<td id="dealamount">Bergen</td>
+		        		</tr>
+		        	</tbody>
+		        </table>
+		      </div>
+
+		      <div class="collapse multi-collapse" id="customerCommunication" style="margin-left: 25px; margin-right: 25px; padding: 15px; border: 1px solid #F46B50;">
+			      <small style="padding-left: 5px; padding-right: 5px; border-bottom: 1px solid #ccc;">29.11.2019 | Astrid Olsson</small>
+			      <br><br>			      
+			    </div>
+
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" style="color: #F46B50;" onclick="$('#scoreboardModal').modal('toggle');">Lukk</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="fixed-top">
+			<nav class="navbar navbar-light justify-content-betweenp" style="background-color: #283848; border-top: 2px solid #F46B50; color: #fff !important;">
+			  <img src="img/logo.png" style="height: 50px; width: 50px; float: left;" />
+			  <h4 style="left: 80; position: absolute; float: left !important; margin-top: 2px;">HubSpot Sales Merge</h4>
+			  <form class="form-inline">
+			  	Stian W. Instebø <img src="https://myrensfysikalske.no/wp-content/uploads/sites/3/2017/12/profile-placeholder.png" style="height: 40px; width: 40px; border-radius: 50%; margin-left: 5px;" />
+			  </form>
+			</nav>
+
+			<nav class="navbar navbar-light bg-light justify-content-between" style="background-color: #ededed !important;">
+			  <a class="navbar-brand"></a>
+			  <form class="form-inline" style="padding-right: 120px;">
+			  	<div class="btn-group">
+
+				  <div class="btn-group" style="margin-left: 10px;">
+
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonLand" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Land
+				  </button>
+				 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtonLand">
+				    <a class="dropdown-item" href="#" onclick="selectSalesCountry('0', '')">Alle</a>
+				    <a class="dropdown-item" href="#" onclick="selectSalesCountry('6463683', 'Norge')">Norge</a>
+				    <a class="dropdown-item" href="#" onclick="selectSalesCountry('4190527', 'Sverige')">Sverige</a>
+				  </div>
+				</div>
+
+				<div class="btn-group" style="margin-left: 10px;">
+
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonDepartment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Avdelinger
+				  </button>
+				 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtonDepartment">
+				    <a class="dropdown-item" href="#" onclick="selectSalesDepartment('0', '')">Alle</a>
+				    <a class="dropdown-item selectSverige" id="sverige" href="#" onclick="selectSalesDepartment('1', 'Malmø')">Malmø</a>
+				    <a class="dropdown-item selectNorge" id="norge" href="#" onclick="selectSalesDepartment('2', 'Bergen')">Bergen</a>
+				    <a class="dropdown-item selectNorge" id="norge" href="#" onclick="selectSalesDepartment('3', 'Oslo')">Oslo</a>
+				    <a class="dropdown-item selectNorge" id="norge" href="#" onclick="selectSalesDepartment('4', 'Trondheim')">Trondheim</a>
+				    <a class="dropdown-item selectNorge" id="norge" href="#" onclick="selectSalesDepartment('5', 'Ledelsen')">Ledelsen</a>
+				  </div>
+				</div>
+
+				  <div class="btn-group">
+
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonSales" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Selgere
+				  </button>
+				  <div id="sales-persons" class="dropdown-menu dropdown-menu-right" style="max-height: 400px; overflow: scroll;" aria-labelledby="dropdownMenuButtonSales">
+				  	<div class="col-12" style="">
+				  		<div class="form-group" style="width: 100%;">
+						    <input type="text" id="search-persons" class="form-control" style="padding-left: 5px;width: 100%; border: 0;" aria-describedby="" placeholder="Selger">
+						</div>
+				  	</div>
+				  	<div class="dropdown-divider"></div>
+				  </div>
+				</div>
+
+			    <div class="btn-group" style="margin-left: 10px;">
+
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonPeriode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Periode
+				  </button>
+				 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtonPeriode" style="max-height: 600px; overflow: auto;">
+				    <a class="dropdown-item" href="#" onclick="selectSalesPeriode('0', '', 'Alle perioder')">Alle perioder</a>
+				    <a class="dropdown-item" href="javascript:void(0);" onclick="$('.menu-2020').slideToggle(); event.stopPropagation(); ">2020 <i id="" class="material-icons" style="font-size: 15px;"> keyboard_arrow_down </i></a>
+				    <div class="menu-2020" style="width: 100%;display: none;">
+				    	<div class="dropdown-divider"></div>
+
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '', 'Hele året')">Hele året</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '1', 'Januar')">Januar</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '2', 'Februar')">Februar</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '3', 'Mars')">Mars</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '4', 'April')">April</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '5', 'Mai')">Mai</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '6', 'Juni')">Juni</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '7', 'Juli')">Juli</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '8', 'August')">August</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '9', 'September')">September</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '10', 'Oktober')">Oktober</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '11', 'November')">November</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2020', '12', 'Desember')">Desember</a>
+				    </div>
+
+				    <a class="dropdown-item" href="javascript:void(0);" onclick="$('.menu-2019').slideToggle(); event.stopPropagation(); ">2019 <i id="" class="material-icons" style="font-size: 15px;"> keyboard_arrow_down </i></a>
+				    <div class="menu-2019" style="width: 100%;display: none;">
+				    	<div class="dropdown-divider"></div>
+
+				    	<a class="dropdown-item active" href="#" onclick="selectSalesPeriode('2019', '', 'Hele året')">Hele året</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '1', 'Januar')">Januar</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '2', 'Februar')">Februar</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '3', 'Mars')">Mars</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '4', 'April')">April</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '5', 'Mai')">Mai</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '6', 'Juni')">Juni</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '7', 'Juli')">Juli</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '8', 'August')">August</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '9', 'September')">September</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '10', 'Oktober')">Oktober</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '11', 'November')">November</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2019', '12', 'Desember')">Desember</a>
+				    </div>
+
+				    <a class="dropdown-item" href="javascript:void(0);" onclick="$('.menu-2018').slideToggle(); event.stopPropagation(); ">2018 <i id="" class="material-icons" style="font-size: 15px;"> keyboard_arrow_down </i></a>
+				    <div class="menu-2018" style="width: 100%;display: none;">
+				    	<div class="dropdown-divider"></div>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '')">Hele året</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '1')">Januar</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '2')">Februar</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '3')">Mars</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '4')">April</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '5')">Mai</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '6')">Juni</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '7')">Juli</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '8')">August</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '9')">September</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '10')">Oktober</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '11')">November</a>
+				    	<a class="dropdown-item" href="#" onclick="selectSalesPeriode('2018', '12')">Desember</a>
+				    </div>
+				  </div>
+				</div>
+			  </form>
+			</nav>
+		</div>
+		<div class="row" style="height: 200px; margin: 0; margin-top: 200px;">
+
+			<div class="col-3 post-vertical-parent" style="height: 100% !important; ">
+				<div class="card post-vertical-child bg-success">
+					<div class="card-body">
+						<div class="card-body-top" style="color: #fff;">Signert</div>
+						<div id="amountOmsatt" class="card-body-bottom font-worksans" style="color: #fff; ">
+							<div class="loader" style="margin-top: -10px;">
+							    <svg class="circular">
+							        <circle class="path" fill="none" r="20" cx="50" cy="50" stroke-width="3" stroke-miterlimit="10"/>
+							    </svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-3 post-vertical-parent" style="height: 100% !important; ">
+				<div class="card post-vertical-child" style="background-color: #283848;">
+					<div class="card-body">
+						<div class="card-body-top" style="color: #fff;">Pågående salgsprosesser</div>
+						<div id="amountPotensial" class="card-body-bottom font-worksans " style="color: #fff;">
+							<div class="loader" style="margin-top: -10px;">
+							    <svg class="circular">
+							        <circle class="path" fill="none" r="20" cx="50" cy="50" stroke-width="3" stroke-miterlimit="10"/>
+							    </svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-3 post-vertical-parent" style="height: 100% !important; ">
+				<div class="card post-vertical-child bg-warning">
+					<div class="card-body">
+						<div class="card-body-top" style="color: #fff;">Tapt omsettning</div>
+						<div id="amountLost" style="color: #fff;" class="card-body-bottom font-worksans ">
+							<div class="loader" style="margin-top: -10px;">
+							    <svg class="circular">
+							        <circle class="path" fill="none" r="20" cx="50" cy="50" stroke-width="3" stroke-miterlimit="10"/>
+							    </svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-3 post-vertical-parent" style="height: 100% !important; ">
+				<div class="card post-vertical-child bg-info">
+					<div class="card-body" >
+						<div class="card-body-top" style="color: #fff;">Forventet ordreinngang</div>
+						<div id="amountEstimert" style="color: #fff;" class="card-body-bottom font-worksans ">
+							<div class="loader" style="margin-top: -10px;">
+							    <svg class="circular">
+							        <circle class="path" fill="none" r="20" cx="50" cy="50" stroke-width="3" stroke-miterlimit="10"/>
+							    </svg>
+							</div>
+						</div>
+
+					</div>
+					<button class="btn-scoreboard" onclick="showScoreBoard()">Scoreboard</button>
+				</div>
+			</div>
+		</div>
+		<div class="btn-graph-holder" style="width: 100%; height: 50px; ">
+			<button type="button" class="btn btn-secondary" style="width: 100%; border-bottom: 1px solid #ccc;" onclick="actionToggleGraph();">Vis graf</button>
+		</div>
+		
+		<div class="row" id="graph-view" style="margin: 0; margin-top: 20px; height: 300px; display: none;">
+			<div class="col-12" style="">
+				<canvas id="barChart"></canvas>
+				<div class="col-12" style="height: 40px; border-bottom: 1px solid #ccc; padding-left: 55px; padding-right: 55px; text-align: center; color: #F46B50; ">
+					<div class="col-1" style="float: left;">Januar</div>
+					<div class="col-1" style="float: left;">Februar</div>
+					<div class="col-1" style="float: left;">Mars</div>
+					<div class="col-1" style="float: left;">April</div>
+					<div class="col-1" style="float: left;">Mai</div>
+					<div class="col-1" style="float: left;">Juni</div>
+					<div class="col-1" style="float: left;">Juli</div>
+					<div class="col-1" style="float: left;">August</div>
+					<div class="col-1" style="float: left;">September</div>
+					<div class="col-1" style="float: left;">Oktober</div>
+					<div class="col-1" style="float: left;">November</div>
+					<div class="col-1" style="float: left;">Desember</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row" style="margin: 0; margin-top: 40px;">
+			<div class="col-10" style="float: right; padding-left: 22px; font-size: 25px;">Kunder i Salespipe</div>
+			<div class="col-10" style="float: left; padding-left: 22px;">
+				<input type="text" id="table-filter-input" style="display: none;" placeholder="Filters" class="form-control" value=''> 
+			</div>
+			<div class="col-2" style="float: right;">
+				<button type="button" onclick="actionToggleTable()" style="display:inline-block; float: right;" class="btn btn-secondary">
+					<i id="table-icon" class="material-icons"> keyboard_arrow_down </i>
+				</button>
+				
+			</div>
+			<div class="col-12" style="margin: 0 auto;">
+		      <table class="table table-hover">
+				  <thead style="color: #fff !important; " >
+				    <tr id="tbl-pipeline" style="">
+				    	<!-- check if sale is lost, add lost sale in column next to progress -->
+				      <th scope="col" style="width: 500px;"></th>
+				      <th id="th-pipelineZ" class="poorreadingpeeps" scope="col" style="width: 30px; color: #FAFAFA !important;">%</th>
+				      <th id="th-pipeline0" class="poorreadingpeeps" scope="col" style="width: 120px;"></th>
+				      <th id="th-pipeline1" class="poorreadingpeeps" scope="col" style="width: 180px;"></th>
+				      <th id="th-pipeline2" class="poorreadingpeeps" scope="col" style="width: 250px;"></th>
+				      <th id="th-pipeline3" class="poorreadingpeeps" scope="col" style="width: 250px;"></th>
+				      <th id="th-pipeline4" class="poorreadingpeeps" scope="col" style="width: 50px;"></th>
+				      <th id="th-pipeline5" class="poorreadingpeeps" scope="col" style="width: 150px;"></th>
+				    </tr>
+				  </thead>
+				  <tbody id="tbl-customers" style="display: none;">
+
+				  </tbody>
+				  <tr onclick="actionToggleTable()" style="cursor: pointer;">
+
+				  	<td style="text-align: left;"><small>Antall: <span id="stages-customers">1</span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stageZ"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage1"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage2"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage3"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage4"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage5"></span></small></td>
+				  	<td style="text-align: center;"><small><span id="stages-stage6"></span></small></td>
+				  </tr>
+				</table>
+				<div class="row" style="margin: 0; margin-top: 20px;">
+			<div class="col-10" style="float: left; padding-left: 22px; font-size: 25px;"></div>
+
+			<div class="col-2" style="float: right;">
+				<button type="button" onclick="loadData(15)" style="float: right;" class="btn btn-secondary">
+					<i id="table-icon" class="material-icons"> keyboard_arrow_right </i>
+				</button>
+				<button type="button" onclick="actionToggleTable()" style="float: right;" class="btn btn-secondary">
+					<i id="table-icon" class="material-icons"> keyboard_arrow_left </i>
+				</button>
+				
+			</div>
+		    </div>
+		</div>
+	</body>
+</html>
