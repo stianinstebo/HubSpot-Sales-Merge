@@ -37,7 +37,7 @@ app.get('/full',function(req,res){
 
 app.get('/api/pipelines/', (req, res) => {
 	var options = { method: 'GET', 
-	  url: 'https://api.hubapi.com/crm-pipelines/v1/pipelines/deals?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734&order_by=displayorder'
+	  url: 'https://api.hubapi.com/crm-pipelines/v1/pipelines/deals?hapikey=&order_by=displayorder'
 	  }
 
 	request(options, function (error, response, body) {
@@ -61,16 +61,13 @@ app.get('/api/pipelines/', (req, res) => {
 
 });
 
-
-//https://api.hubapi.com/owners/v2/owners?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734
-
 app.get('/api/owners/:apikey', (req, res) => {
-	var accountArray = ['43ac5280-fddd-454f-afb4-f6bca6347734', '8fc0311f-9ad5-44b2-b04a-8404caa887df'];
+	var accountArray = ['', ''];
 	var apikey = req.params.apikey;
 	//for (i in accountArray) {
 		//console.log(accountArray[i]);
 
-		var options = { method: 'GET', originalHostHeaderName: 'Host', //https://api.hubapi.com/companies/v2/companies/paged?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734&properties=name&properties=website&limit=10
+		var options = { method: 'GET', originalHostHeaderName: 'Host', 
 		url: 'https://api.hubapi.com/owners/v2/owners?hapikey='+apikey }
 
 		var ownerArr = [];
@@ -93,15 +90,14 @@ app.get('/api/owners/:apikey', (req, res) => {
 });
 app.get('/api/deal/:dealid/:country', (req, res) => {
 	// console.log("sent deal param: "+);
-	//https://api.hubapi.com/deals/v1/deal/18479339?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734
 	var hapikeytemp = "";
 	switch(req.params.country) {
 		case '6463683':
-			hapikeytemp = '43ac5280-fddd-454f-afb4-f6bca6347734';
+			hapikeytemp = '';
 		break;
 
 		case '4190527':
-			hapikeytemp = '763188a5-eb8c-4f45-b915-0c64e9ac3114';
+			hapikeytemp = '';
 		break;
 	}
 	var options = { method: 'GET', 
@@ -129,17 +125,10 @@ app.get('/api/deal/:dealid/:country', (req, res) => {
 app.get('/test', (req, res) => {
 	//arr[0] = NO
 	//arr[1] = SWE
-	var accountArray = ['43ac5280-fddd-454f-afb4-f6bca6347734', '763188a5-eb8c-4f45-b915-0c64e9ac3114'];
-	var options = { method: 'GET', originalHostHeaderName: 'Host', //https://api.hubapi.com/companies/v2/companies/paged?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734&properties=name&properties=website&limit=10
-	  url: 'https://api.hubapi.com/deals/v1/deal/paged?hapikey='+accountArray[0]+'&includeAssociations=true&limit=99&properties=dealname&properties=dealstage&properties=amount&properties=hubspot_owner_id&properties=closedate&properties=hubspot_team_id'/*,
-	  qs: { hapikey: '43ac5280-fddd-454f-afb4-f6bca6347734' }*/ }
-	  //https://api.hubapi.com/companies/v2/companies/paged?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734&limit=4&includeProperties=true
-	//https://api.hubapi.com/companies/v2/companies/paged?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734&limit=12&properties=name&properties=lifecyclestage
-	
-	//NEW: https://api.hubapi.com/deals/v1/deal/paged?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734&includeAssociations=true&limit=90&properties=dealname&properties=dealstage
-
-	//OLD: https://api.hubapi.com/companies/v2/companies/paged?properties=name&properties=lifecyclestage&limit=99&hapikey=43ac5280-fddd-454f-afb4-f6bca6347734
-	var companyArr = [];
+	var accountArray = ['', ''];
+	var options = { method: 'GET', originalHostHeaderName: 'Host', 
+	  url: 'https://api.hubapi.com/deals/v1/deal/paged?hapikey='+accountArray[0]+'&includeAssociations=true&limit=99&properties=dealname&properties=dealstage&properties=amount&properties=hubspot_owner_id&properties=closedate&properties=hubspot_team_id'
+		       var companyArr = [];
 	request(options, function (error, response, body) {
 	  if (error) throw new Error(error);
 	  var obj = JSON.parse(body);
@@ -167,16 +156,9 @@ app.get('/test', (req, res) => {
 		  //Lead status
 		});
 
-	  var options2 = { method: 'GET', //https://api.hubapi.com/companies/v2/companies/paged?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734&properties=name&properties=website&limit=10
-	  url: 'https://api.hubapi.com/deals/v1/deal/paged?hapikey='+accountArray[1]+'&includeAssociations=true&limit=99&properties=dealname&properties=dealstage&properties=amount&properties=hubspot_owner_id&properties=closedate'/*,
-	  qs: { hapikey: '43ac5280-fddd-454f-afb4-f6bca6347734' }*/ }
-	  //https://api.hubapi.com/companies/v2/companies/paged?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734&limit=4&includeProperties=true
-		//https://api.hubapi.com/companies/v2/companies/paged?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734&limit=12&properties=name&properties=lifecyclestage
-		
-		//NEW: https://api.hubapi.com/deals/v1/deal/paged?hapikey=43ac5280-fddd-454f-afb4-f6bca6347734&includeAssociations=true&limit=90&properties=dealname&properties=dealstage
-
-		//OLD: https://api.hubapi.com/companies/v2/companies/paged?properties=name&properties=lifecyclestage&limit=99&hapikey=43ac5280-fddd-454f-afb4-f6bca6347734
-		// var companyArr = [];
+	  var options2 = { method: 'GET', 
+	  url: 'https://api.hubapi.com/deals/v1/deal/paged?hapikey='+accountArray[1]+'&includeAssociations=true&limit=99&properties=dealname&properties=dealstage&properties=amount&properties=hubspot_owner_id&properties=closedate'
+	  
 		request(options2, function (error, response, body) {
 		  if (error) throw new Error(error);
 		  var obj = JSON.parse(body);
